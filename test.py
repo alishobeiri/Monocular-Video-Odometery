@@ -3,10 +3,13 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 
 
-cap = cv.VideoCapture('./videos/test_bronx_trim_2.mp4')
-fast = cv.FastFeatureDetector_create(threshold=150)
+cap = cv.VideoCapture('./videos/test_countryroad.mp4')
 
 
+focal = 718.8560
+pp = (607.1928, 185.2157)
+R = np.zeros((3, 3))
+t = np.zeros((3, 3))
 # params for ShiTomasi corner detection
 feature_params = dict( maxCorners = 100,
                        qualityLevel = 0.3,
@@ -25,9 +28,11 @@ p0 = cv.goodFeaturesToTrack(old_gray, mask = None, **feature_params)
 # Create a mask image for drawing purposes
 
 n_features = p0.shape[0]
-
+avg = np.array([old_frame.shape[0]//2, old_frame.shape[1]//2], dtype=np.float32)
 mask = np.zeros_like(old_frame)
-count = 0
+traj = np.zeros_like(old_frame)
+t_mask = np.zeros_like(traj)
+count = 1
 flag = True
 while(1):
     if n_features < 50:
@@ -41,6 +46,8 @@ while(1):
     good_new = p1[st==1]
     good_old = p0[st==1]
     
+
+    dom_vector = np.array([0.0, 0.0])
     # draw the tracks
     p_mask = np.zeros_like(good_new)
     for i, (new,old) in enumerate(zip(good_new,good_old)):
@@ -50,15 +57,42 @@ while(1):
         if np.linalg.norm(new - old) < 10:
             p_mask[i] = 1
 
+            dom_vector[0] += (a - c)
+            dom_vector[1] += (b - d)
             if flag:
                 mask = cv.line(mask, (a,b),(c,d), color[i].tolist(), 2)
                 frame = cv.circle(frame,(a,b),5,color[i].tolist(),-1)
-    
-    # Only use good points that don't move too much, ensure points are stable
-    good_new = good_new[p_mask == 1]
 
+    dom_vector = dom_vector/np.linalg.norm(good_new - good_old)
+    print(dom_vector)
+
+    first = (int(round(avg[0])), int(round(avg[1])))
+    second = (int(round(avg[0] + dom_vector[0])), int(round(avg[1] + dom_vector[1])))
+    t_mask = cv.line(t_mask, first, second, color[i].tolist(), 2)
+
+    traj = cv.circle(traj, (1000, 1000),5,color[i].tolist(),-1)
+
+    # t_mask = cv.line(t_mask, (0,0),(500,500), color[i].tolist(), 2)
+    traj = cv.add(traj, t_mask)
+
+    avg[0] += dom_vector[0]
+    avg[1] += dom_vector[1]
+    
+    print(avg)
+
+    # Only use good points that don't move too much, ensure points are stable
+    # print("p0: ", p0)
+    # good_new = good_new[p_mask == 1].reshape(-1, 2)
+    # good_old = good_old[p_mask == 1].reshape(-1, 2)
+    E, _ = cv.findEssentialMat(good_new, good_old, focal, pp, cv.RANSAC, 0.999, 1.0, mask)
+    # print("E: ", E)
+
+    _, R, t, _ = cv.recoverPose(E, good_old, good_new, R, t, focal, pp, mask)
+    print("R: ", R)
+    print("t: ", t)
     img = cv.add(frame, mask)
-    cv.imshow('frame',img)
+    # cv.imshow('frame', img)
+    # cv.imshow('traj', traj)
     k = cv.waitKey(1)
     
     if k == 27:
