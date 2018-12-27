@@ -182,3 +182,7 @@ for img_id in range(2, len(os.listdir(file_path))):
     n_features = p0.shape[0]
     count += 1
 cv.destroyAllWindows()
+
+
+# https://github.com/uoip/monoVO-python
+# https://github.com/avisingh599/mono-vo
