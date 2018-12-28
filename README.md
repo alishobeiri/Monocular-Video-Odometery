@@ -11,7 +11,7 @@ Steps of the algorithm are as follows are detailed [here](http://avisingh599.git
 5. Estimate R, t from the essential matrix that was computed from Nister's algorithm.
 6. Obtain scale information from an external source and concatenate translation vectors t and rotation matrices R.
 
-For each of the steps above, the line of code is provided to the exact location where this step is preformed in the code for easy tracking. Steps 1 and 2 are skipped as they are done by default in the KITTI dataset. 
+For each of the steps above, the line of code is provided to the exact location where this step is preformed in the code for easy understanding. Steps 1 and 2 are skipped as they are not necessary in the KITTI dataset.
 
 3. [Line 80, monovideoodemetry.py](https://github.com/alishobeiri/mono-video-odometery/blob/master/monovideoodometery.py#L80)
 4. [Line 112, monovideoodemetry.py](https://github.com/alishobeiri/mono-video-odometery/blob/master/monovideoodometery.py#L112)
