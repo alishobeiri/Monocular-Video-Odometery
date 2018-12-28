@@ -23,7 +23,7 @@ The dataset used is: [KITTI Visual Odometry](http://www.cvlibs.net/datasets/kitt
 
 # Running Program
 1. First clone repository
-2. In `test.py` change `img_path` and `pose_path` to correct image sequences and pose txt files.
+2. In `test.py` change `img_path` and `pose_path` to correct image sequences and pose file paths
 3. Ensure focal length and principal point information is correct
 4. Adjust Lucas Kanade Parameters as needed
 5. Run command `python ./test.py`
