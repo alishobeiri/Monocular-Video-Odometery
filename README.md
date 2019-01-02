@@ -1,6 +1,9 @@
 # Monocular Video Odometry Using OpenCV
 This is an OpenCV based implementation of visual odometery. This was ported from C++ from the repo found [here](https://github.com/avisingh599/mono-vo)
 
+# Demo
+[![Demo video](https://j.gifs.com/pQO5Zp.gif)](https://www.youtube.com/watch?v=xe_k6zRe65Y)
+
 
 # Algorithm
 Steps of the algorithm are as follows are detailed [here](http://avisingh599.github.io/assets/ugp2-report.pdf). 
