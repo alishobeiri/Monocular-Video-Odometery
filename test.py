@@ -67,13 +67,13 @@ while(vo.hasNextFrame()):
     draw_x, draw_y, draw_z = [int(round(x)) for x in mono_coord]
     true_x, true_y, true_z = [int(round(x)) for x in true_coord]
 
-    traj = cv.circle(traj, (true_x + 400, true_z + 100), 1, list((0, 0, 255)), 3)
-    traj = cv.circle(traj, (draw_x + 400, draw_z + 100), 1, list((0, 255, 0)), 3)
+    traj = cv.circle(traj, (true_x + 400, true_z + 100), 1, list((0, 0, 255)), 4)
+    traj = cv.circle(traj, (draw_x + 400, draw_z + 100), 1, list((0, 255, 0)), 4)
 
-    cv.putText(traj, 'Actual:', (100, 90), cv.FONT_HERSHEY_SIMPLEX, 0.5,(255,255,255), 1)
-    cv.putText(traj, 'Red', (160, 90), cv.FONT_HERSHEY_SIMPLEX, 0.5,(0, 0, 255), 1)
-    cv.putText(traj, 'Odometry:', (70, 120), cv.FONT_HERSHEY_SIMPLEX, 0.5,(255,255,255), 1)
-    cv.putText(traj, 'Green', (160, 120), cv.FONT_HERSHEY_SIMPLEX, 0.5,(0, 255, 0), 1)
+    cv.putText(traj, 'Actual Position:', (140, 90), cv.FONT_HERSHEY_SIMPLEX, 0.5,(255,255,255), 1)
+    cv.putText(traj, 'Red', (270, 90), cv.FONT_HERSHEY_SIMPLEX, 0.5,(0, 0, 255), 1)
+    cv.putText(traj, 'Estimated Odometry Position:', (30, 120), cv.FONT_HERSHEY_SIMPLEX, 0.5,(255,255,255), 1)
+    cv.putText(traj, 'Green', (270, 120), cv.FONT_HERSHEY_SIMPLEX, 0.5,(0, 255, 0), 1)
 
     cv.imshow('trajectory', traj)
 cv.imwrite("trajectory.png", traj)
