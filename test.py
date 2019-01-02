@@ -8,7 +8,6 @@ import os
 img_path = 'C:\\Users\\Ali\\Desktop\\Projects\\SLAM\\videos\\data_odometry_gray\\dataset\\sequences\\00\\image_0\\'
 pose_path = 'C:\\Users\\Ali\\Desktop\\Projects\\SLAM\\videos\\data_odometry_poses\\dataset\\poses\\00.txt'
 
-
 focal = 718.8560
 pp = (607.1928, 185.2157)
 R_total = np.zeros((3, 3))
@@ -23,13 +22,36 @@ lk_params = dict( winSize  = (21,21),
 color = np.random.randint(0,255,(5000,3))
 
 vo = MonoVideoOdometery(img_path, pose_path, focal, pp, lk_params)
-traj = np.zeros(shape=(1000, 1000, 3))
-print(vo.id)
+traj = np.zeros(shape=(600, 600, 3))
+
+# mask = np.zeros_like(vo.current_frame)
+# flag = False
 while(vo.hasNextFrame()):
-    # cv.imshow('frame', vo.current_frame)
-    # k = cv.waitKey(1)
-    # if k == 27:
-    #     break
+
+    frame = vo.current_frame
+
+    # for i, (new,old) in enumerate(zip(vo.good_new, vo.good_old)):
+    #     a,b = new.ravel()    
+    #     c,d = old.ravel()
+        
+    #     if np.linalg.norm(new - old) < 10:
+    #         if flag:
+    #             mask = cv.line(mask, (a,b),(c,d), color[i].tolist(), 2)
+    #             frame = cv.circle(frame,(a,b),5,color[i].tolist(),-1)
+
+
+    # cv.add(frame, mask)
+    cv.imshow('frame', frame)
+    k = cv.waitKey(1)
+    if k == 27:
+        break
+
+    if k == 121:
+        flag = not flag
+        toggle_out = lambda flag: "On" if flag else "Off"
+        print("Flow lines turned ", toggle_out(flag))
+        mask = np.zeros_like(vo.old_frame)
+        mask = np.zeros_like(vo.current_frame)
 
     vo.process_frame()
 
@@ -45,8 +67,14 @@ while(vo.hasNextFrame()):
     draw_x, draw_y, draw_z = [int(round(x)) for x in mono_coord]
     true_x, true_y, true_z = [int(round(x)) for x in true_coord]
 
-    traj = cv.circle(traj, (draw_x + 400, draw_z + 100), 1, list((255, 255, 255)), 1)
-    traj = cv.circle(traj, (true_x + 400, true_z + 100), 1, list((0, 0, 255)), 1)
+    traj = cv.circle(traj, (true_x + 400, true_z + 100), 1, list((0, 0, 255)), 3)
+    traj = cv.circle(traj, (draw_x + 400, draw_z + 100), 1, list((0, 255, 0)), 3)
+
+    cv.putText(traj, 'Actual:', (100, 90), cv.FONT_HERSHEY_SIMPLEX, 0.5,(255,255,255), 1)
+    cv.putText(traj, 'Red', (160, 90), cv.FONT_HERSHEY_SIMPLEX, 0.5,(0, 0, 255), 1)
+    cv.putText(traj, 'Odometry:', (70, 120), cv.FONT_HERSHEY_SIMPLEX, 0.5,(255,255,255), 1)
+    cv.putText(traj, 'Green', (160, 120), cv.FONT_HERSHEY_SIMPLEX, 0.5,(0, 255, 0), 1)
+
     cv.imshow('trajectory', traj)
 cv.imwrite("trajectory.png", traj)
 

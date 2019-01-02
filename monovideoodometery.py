@@ -113,7 +113,7 @@ class MonoVideoOdometery(object):
             _, R, t, _ = cv2.recoverPose(E, self.good_old, self.good_new, self.R.copy(), self.t.copy(), self.focal, self.pp, None)
 
             absolute_scale = self.get_absolute_scale()
-            if (absolute_scale):
+            if (absolute_scale > 0.1 and abs(t[2][0]) > abs(t[0][0]) and abs(t[2][0]) > abs(t[1][0])):
                 self.t = self.t + absolute_scale*self.R.dot(t)
                 self.R = R.dot(self.R)
 
@@ -131,6 +131,7 @@ class MonoVideoOdometery(object):
 
         return adj_coord.flatten()
 
+
     def get_true_coordinates(self):
         '''Returns true coordinates of vehicle
         
@@ -139,6 +140,7 @@ class MonoVideoOdometery(object):
         '''
         return self.true_coord.flatten()
 
+
     def get_absolute_scale(self):
         '''Used to provide scale estimation for mutliplying
            translation vectors
@@ -146,7 +148,6 @@ class MonoVideoOdometery(object):
         Returns:
             float -- Scalar value allowing for scale estimation
         '''
-
         pose = self.pose[self.id - 1].strip().split()
         x_prev = float(pose[3])
         y_prev = float(pose[7])
