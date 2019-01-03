@@ -22,7 +22,7 @@ lk_params = dict( winSize  = (21,21),
 color = np.random.randint(0,255,(5000,3))
 
 vo = MonoVideoOdometery(img_path, pose_path, focal, pp, lk_params)
-traj = np.zeros(shape=(600, 600, 3))
+traj = np.zeros(shape=(600, 800, 3))
 
 # mask = np.zeros_like(vo.current_frame)
 # flag = False
@@ -76,6 +76,6 @@ while(vo.hasNextFrame()):
     cv.putText(traj, 'Green', (270, 120), cv.FONT_HERSHEY_SIMPLEX, 0.5,(0, 255, 0), 1)
 
     cv.imshow('trajectory', traj)
-cv.imwrite("trajectory.png", traj)
+cv.imwrite("./images/trajectory.png", traj)
 
 cv.destroyAllWindows()
