@@ -8,7 +8,7 @@ This is an OpenCV based implementation of visual odometery. This was ported from
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=xe_k6zRe65Y">
-    <img src="https://i.imgur.com/VKFkn2G.gif">
+    <img src="gifs/demo-video.gif">
   </a>
 </p>
 
