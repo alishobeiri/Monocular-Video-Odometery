@@ -4,7 +4,7 @@ This is an OpenCV based implementation of visual odometery. This was ported from
 # Demo
 <p align="center">
   <a href="https://www.youtube.com/watch?v=xe_k6zRe65Y">
-    <img src="https://i.imgur.com/Um1PYUx.gifv">
+    <img src="https://i.imgur.com/Um1PYUx.gif">
   </a>
 </p>
 
