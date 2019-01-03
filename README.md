@@ -2,6 +2,8 @@
 This is an OpenCV based implementation of visual odometery. This was ported from C++ from the repo found [here](https://github.com/avisingh599/mono-vo)
 
 # Demo
+
+[Imgur](https://i.imgur.com/VKFkn2G.gifv)
 [![Demo video](https://i.imgur.com/VKFkn2G.gifv)](https://www.youtube.com/watch?v=xe_k6zRe65Y)
 
 <p align="center">
