@@ -1,7 +1,7 @@
 # Monocular Video Odometry Using OpenCV
-This is an OpenCV based implementation of visual odometery. This was ported from C++ into Python using the repo found [here](https://github.com/avisingh599/mono-vo) as reference.
+This is an OpenCV based implementation of visual odometery. 
 
-An invaluable resource I used in building the visual odometry system was Avi Singh's blog post here: http://avisingh599.github.io/vision/monocular-vo/
+An invaluable resource I used in building the visual odometry system was Avi Singh's blog post here: http://avisingh599.github.io/vision/monocular-vo/ as well as his C++ implementation found [here](https://github.com/avisingh599/mono-vo).
 
 # Demo Video
 <p align="center">
