@@ -1,5 +1,5 @@
 # Monocular Video Odometry Using OpenCV
-This is an OpenCV based implementation of visual odometery. 
+This is an Python OpenCV based implementation of visual odometery. 
 
 An invaluable resource I used in building the visual odometry system was Avi Singh's blog post: http://avisingh599.github.io/vision/monocular-vo/ as well as his C++ implementation found [here](https://github.com/avisingh599/mono-vo).
 
@@ -12,7 +12,7 @@ An invaluable resource I used in building the visual odometry system was Avi Sin
 
 
 # Algorithm
-Steps of the algorithm are as follows are detailed [here](http://avisingh599.github.io/assets/ugp2-report.pdf). 
+Steps of the algorithm are taken from Avi Singh's blog post mentioned above. 
 1. Capture images: I<sup>t</sup> and I<sup>t + 1</sup>
 2. Undistort the captured images (not necessary for KITTI dataset)
 3. Use FAST algorithm to detect features in image I<sup>t</sup>. Track these features using an optical flow methodology, remove points that fall out of frame or are not visible in I<sup>t + 1</sup>. Trigger a new detection of points if the number of tracked points falls behind a threshold. Set to 2000 in this implementation. 
