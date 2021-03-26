@@ -3,6 +3,8 @@ This is an Python OpenCV based implementation of visual odometery.
 
 An invaluable resource I used in building the visual odometry system was Avi Singh's blog post: http://avisingh599.github.io/vision/monocular-vo/ as well as his C++ implementation found [here](https://github.com/avisingh599/mono-vo).
 
+Datasets that can be used: [http://www.cvlibs.net/datasets/kitti/eval_odometry.php](http://www.cvlibs.net/datasets/kitti/eval_odometry.php)
+
 # Demo Video
 <p align="center">
   <a href="https://www.youtube.com/watch?v=xe_k6zRe65Y">
